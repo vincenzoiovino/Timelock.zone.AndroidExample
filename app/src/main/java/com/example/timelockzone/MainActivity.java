@@ -1,7 +1,7 @@
 package com.example.timelockzone;
 
+
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
@@ -11,15 +11,11 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -32,7 +28,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
-import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -41,7 +36,6 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -49,11 +43,10 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.ShortBufferException;
 
-import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
     private static String txtDate = "01092023";
-    private String scheme = "secp256k1";
+    private static final String scheme = "secp256k1";
 
 
     public void select_date(View view) {
@@ -85,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
 
             plainText = ((EditText) findViewById(R.id.input)).getText().toString();
-            byte cipherText[] = new byte[iesCipher.getOutputSize(plainText.getBytes().length)];
+            byte[] cipherText = new byte[iesCipher.getOutputSize(plainText.getBytes().length)];
 
 
             int ctlength = iesCipher.update(plainText.getBytes(), 0, plainText.getBytes().length, cipherText, 0);
-            ctlength += iesCipher.doFinal(cipherText, ctlength);
+            iesCipher.doFinal(cipherText, ctlength);
             System.out.println(Base64.getEncoder().encodeToString(cipherText));
 
             ((TextView) findViewById(R.id.output)).setText(txtDate + Base64.getEncoder().encodeToString(cipherText));
@@ -107,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             builder.setTitle(getString(R.string.e2));
 
             builder.setCancelable(false);
-            builder.setPositiveButton(getString(R.string.ok), (DialogInterface.OnClickListener) (dialog, which) -> {
+            builder.setPositiveButton(getString(R.string.ok),  (dialog, which) -> {
 
             });
             AlertDialog alertDialog = builder.create();
@@ -127,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle(title);
 
         builder.setCancelable(false);
-        builder.setPositiveButton(btn, (DialogInterface.OnClickListener) (dialog, which) -> {
+        builder.setPositiveButton(btn, (dialog, which) -> {
 
         });
         AlertDialog alertDialog = builder.create();
@@ -138,17 +131,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void decrypt(View view) {
 
-        String plainText;
         try {
 
             KeyFactory kf = KeyFactory.getInstance("ECDH");
-
-            Cipher iesCipher = Cipher.getInstance("ECIES");
-
-
             String s = (((TextView) findViewById(R.id.input)).getText()).toString();
             if (s.length() < 9) return;
-            byte cipherText2[];
+            byte[] cipherText2;
             try {
                 cipherText2 = Base64.getDecoder().decode(s.substring(8));
             } catch (Exception e) {
@@ -181,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
             int ctlength2 = iesCipher2.update(cipherText2, 0, cipherText2.length - 1, plainText2);
             ctlength2 += iesCipher2.doFinal(plainText2, ctlength2);
             System.out.println("decrypted plaintext: " + ctlength2 + " " + cipherText2.length + " " + toString(plainText2));
-            TextView tv = (TextView) findViewById(R.id.output);
+            TextView tv = findViewById(R.id.output);
             tv.setText(toString(plainText2));
 
 
@@ -201,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -266,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
 
-        String appLinkAction = appLinkIntent.getAction();
+      //  String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
         if (appLinkData != null) {
             String s = appLinkData.toString();
@@ -302,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean first_usage = true;
 
     public void textEmpty(View v) {
-        if (first_usage == true)
+        if (first_usage)
             ((TextView) findViewById(R.id.input)).setText("");
         first_usage = false;
     }
