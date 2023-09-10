@@ -316,9 +316,9 @@ public class MainActivity extends AppCompatActivity {
             String day = s.substring(0, 2);
             String month = s.substring(2, 4);
             String year = s.substring(4, 8);
-            String ct = s.substring(8);
+            String ct = s;
             // Body of the content
-            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + ct + "\n" + getString(R.string.b3);
+            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + ct;
             // subject of the content. you can share anything
             String shareSubject = getString(R.string.b4);
 

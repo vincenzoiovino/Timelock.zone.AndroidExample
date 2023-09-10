@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Timelock.zone</string>
     <string name="pick_date">Choose a date in the future</string>
-    <string name="AppLink">https://www.timelock.zone/ct</string>
+    <string name="AppLink">https://www.timelock.zone/ct/</string>
     <string name="b1">You received a message encrypted to the future.
     You can decrypt it only from the day" "</string>
-    <string name="b2"> To decrypt it use the following link:" "</string>
+    <string name="b2"> To decrypt it you need to download the timelock.zone app from https://www.timelock.zone and open the following link:" "</string>
     <string name="b3">Download the timelock.zone app from https://www.timelock.zone</string>
     <string name="b4">Timelock.zone message encrypted to the future</string>
     <string name="ctc">Ciphertext copied to clipboard</string>
