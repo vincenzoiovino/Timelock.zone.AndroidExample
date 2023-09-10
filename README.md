@@ -6,6 +6,8 @@ The app is fully working except that the `Timelock.java` has to be modified to r
 
 You can download an `apk` from [here](https://github.com/vincenzoiovino/Timelock.zone.AndroidExample/blob/master/timelock.zone.apk).
 ## Screenshots
-![screenshot1](screenshotlock1.jpg =250x)
-![screenshot2](screenshotlock2.jpg)
-![screenshot3](images/screenshotlock3.jpg)
+<img src="screenshotlock1.jpg" width="30%" height="30%" />
+<br>
+<img src="screenshotlock2.jpg" width="30%" height="30%" />
+<br>
+<img src="screenshotlock3.jpg" width="30%" height="30%" />
