@@ -4,4 +4,4 @@ See also [tlcs-c](https://github.com/aragonzkresearch/tlcs-c/) and [TLCS Usage](
 
 The app is fully working except that the `Timelock.java` has to be modified to retrieve real TLCS keys from the timelock.zone service. Currently, the class uses embedded keys.
 
-You can download an ''apk'' from [here](https://github.com/vincenzoiovino/Timelock.zone.AndroidExample/blob/master/timelock.zone.apk).
+You can download an `apk` from [here](https://github.com/vincenzoiovino/Timelock.zone.AndroidExample/blob/master/timelock.zone.apk).
