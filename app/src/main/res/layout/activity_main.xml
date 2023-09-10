@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+
+    <Button
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:onClick="select_date"
+        android:text="Choose Date" />
+
+    <Button
+        android:id="@+id/encrypt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:onClick="encrypt"
+        android:text="Encrypt" />
+
+    <Button
+        android:id="@+id/decrypt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:onClick="decrypt"
+        android:text="Decrypt" />
+
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="480dp"
+        android:layout_height="201dp"
+        android:text="Type here the message/ciphertext to encrypt/decrypt..."
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:onClick="textEmpty"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="482dp"
+        android:layout_height="207dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:onClick="copyToClipboard"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/shareButton"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:onClick="share"
+        android:background="@null"
+        android:src="@drawable/baseline_share_24" />
+          <Button
+        android:id="@+id/instructions_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Instructions"
+        android:text="?" />
+    <Button
+        android:id="@+id/exit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="finish"
+        android:text="Exit" />
+
+</LinearLayout>

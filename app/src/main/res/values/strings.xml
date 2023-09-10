@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Timelock.zone</string>
+    <string name="pick_date">Choose a date in the future</string>
+    <string name="AppLink">https://www.timelock.zone/ct</string>
+    <string name="b1">You received a message encrypted to the future.
+    You can decrypt it only from the day" "</string>
+    <string name="b2"> To decrypt it use the following link:" "</string>
+    <string name="b3">Download the timelock.zone app from https://www.timelock.zone</string>
+    <string name="b4">Timelock.zone message encrypted to the future</string>
+    <string name="ctc">Ciphertext copied to clipboard</string>
+    <string name="e1">No valid ciphertext to share. Before sharing, follow the instructions to encrypt a message to the future.</string>
+    <string name="e2">Error</string>
+    <string name="e3">An error occurred. Unable to encrypt/decrypt.</string>
+    <string name="e4">Invalid Date</string>
+    <string name="e5">The encrypted message is not associated to a valid date in the future.</string>
+    <string name="e6">It is not time yet</string>
+    <string name="e7">You must wait until" "</string>
+    <string name="e8">to decrypt.</string>
+    <string name="e9">Invalid ciphertext format</string>
+    <string name="e10">An error occurred. Unable to encrypt/decrypt.</string>
+    <string name="instructions_tile">Instructions</string>
+    <string name="back">Back</string>
+    <string name="ok">Ok</string>
+    <string name="instructions">How to encrypt.\n1. Choose a date in the future.\n2. Click on Encrypt.\nThe ciphertext will be displayed. Click on  it and the ciphertext will be copied to your clipboard.\n\n
+    How to decrypt.\n
+    1. Paste the ciphertext in the textbox.\n
+    2. Click on decrypt.\n
+    The plaintext will be displayed or you will get an error if the time of decryption is not reached yet.\n\n
+
+    Sharing.\n
+    Click on the sharing icon to share the ciphertext along with instructions to social media.\n\n
+
+    ©Timelock.zone, 2023.\nPowered by drand.love.</string>
+</resources>
