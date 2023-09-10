@@ -18,6 +18,7 @@
     <string name="e8">to decrypt.</string>
     <string name="e9">Invalid ciphertext format</string>
     <string name="e10">An error occurred. Unable to encrypt/decrypt.</string>
+    <string name="e11">Share using</string>
     <string name="instructions_tile">Instructions</string>
     <string name="back">Back</string>
     <string name="ok">Ok</string>

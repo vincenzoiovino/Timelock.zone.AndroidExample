@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
 
             // passing subject of the content
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
-            startActivity(Intent.createChooser(sharingIntent, "Share using"));
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.e11)));
         } catch (Exception e) {
             ShowAlert("Error", getString(R.string.e1), getString(R.string.back));
 
