@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         if (appLinkData != null) {
             String s = appLinkData.toString();
             if (s.length() > getString(R.string.AppLink).length()) {
-                String ct = appLinkData.toString().substring(getString(R.string.AppLink).length() + 1);
+                String ct = appLinkData.toString().substring(getString(R.string.AppLink).length() );
 
                 ((EditText) findViewById(R.id.input)).setText(ct);
                 decrypt(getWindow().getDecorView().getRootView());
