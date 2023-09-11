@@ -24,6 +24,8 @@
     <string name="e9">Formato invalido del testo cifrato</string>
     <string name="e10">Si è verificato un errore. Impossibile cifrare/decifrare.</string>
     <string name="e11">Condividi con</string>
+    <string name="e12">Servizio timelock.zone inattivo in questo momento. Prova più tardi.</string>
+
     <string name="instructions_tile">Istruzioni</string>
     <string name="back">Indietro</string>
     <string name="ok">Ok</string>

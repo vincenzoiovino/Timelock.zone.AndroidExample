@@ -1,12 +1,50 @@
 package com.example.timelockzone;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Timelock {
+
+    private static String getUrlContents(String theUrl) throws IOException
+    {
+        StringBuilder content = new StringBuilder();
+        // Use try and catch to avoid the exceptions
+        try
+        {
+            URL url = new URL(theUrl); // creating a url object
+            URLConnection urlConnection = url.openConnection(); // creating a urlconnection object
+
+            // wrapping the urlconnection in a bufferedreader
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line;
+            // reading from the urlconnection using the bufferedreader
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                content.append(line + "\n");
+            }
+            bufferedReader.close();
+        }
+        catch(Exception e)
+        {
+        throw new IOException();
+        }
+        return content.toString();
+    }
+
+
     private static long DRAND_GENESIS_TIME=1677685200;
     private static int DRAND_FREQUENCY=3;
     private static byte[] stripPEM(String pem) throws IOException {
@@ -26,10 +64,18 @@ public class Timelock {
         long t= ((date.getTime())/1000);
         return (t-Timelock.DRAND_GENESIS_TIME)/Timelock.DRAND_FREQUENCY;
     }
-    public static byte[] getPublicKeyFromRound(long R, String Scheme) throws IOException {
+    public static byte[] getPublicKeyFromRound(long Round, String Scheme) throws IOException {
 
-        // TODO: retrieve pk for given round R and scheme Scheme
+        // TODO: retrieve pk for given round Round and scheme Scheme
         // for the moment the pk is embedded
+     /*
+        try{
+        getUrlContents("https://api.timelock.zone/chain1/"+ Scheme+"/publickey/pem/" + Round);
+} catch(IOException e) {
+throw  new IOException();
+}
+*/
+
         String pkpem="-----BEGIN PUBLIC KEY-----\n" +
                 "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEOErqrRCc3yBTCdQNfUQNM85JJHXOqYSH\n" +
                 "ibnuF1AtHTgc1iOxS/OlGyVctEF+wJMLrvc/nrd2GhRYcqtsJu9Gfw==\n" +
@@ -37,10 +83,18 @@ public class Timelock {
         return stripPEM(pkpem);
 
     }
-    public static byte[] getSecretKeyFromRound(long R, String Scheme) throws IOException {
+    public static byte[] getSecretKeyFromRound(long Round, String Scheme) throws IOException {
 
-        // TODO: retrieve sk for given round R and given scheme Scheme
+        // TODO: retrieve sk for given round Round and given scheme Scheme
         // for the moment the sk is embedded
+    /*
+        try {
+         getUrlContents("https://api.timelock.zone/chain1/" + Scheme + "/secretkey/pkcs8/" + Round);
+        } catch(IOException e){
+            throw new IOException();
+        }
+
+     */
         String skpem="-----BEGIN PRIVATE KEY-----\n" +
                 "MIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQg+uEhcA+bG/44RS/COUJa\n" +
                 "bjwVrYcMKN8zby1LowdBvnihRANCAAQ4SuqtEJzfIFMJ1A19RA0zzkkkdc6phIeJ\n" +

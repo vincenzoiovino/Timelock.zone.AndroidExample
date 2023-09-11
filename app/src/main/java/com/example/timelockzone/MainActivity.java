@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -67,8 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
             Date date = new Date();
             long Round = Timelock.DateToRound(date);
-            byte[] pk = Timelock.getPublicKeyFromRound(Round, scheme);
 
+            byte[] pk;
+            try {
+                pk = Timelock.getPublicKeyFromRound(Round, scheme);
+            } catch(Exception e) {
+            ShowAlert(getString(R.string.e2),getString(R.string.e12),getString(R.string.back));
+            return;
+            }
 // retrieve PK based on the round Round
 
             PublicKey pub = kf.generatePublic(new X509EncodedKeySpec(pk));
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (InvalidKeySpecException | InvalidKeyException | NoSuchAlgorithmException |
                  ShortBufferException | NoSuchPaddingException | BadPaddingException |
-                 IllegalBlockSizeException | IOException e) {
+                 IllegalBlockSizeException e) {
             e.printStackTrace();
             Log.e("timelock.zone", "exception", e);
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -159,7 +166,13 @@ public class MainActivity extends AppCompatActivity {
             }
             long Round = Timelock.DateToRound(strDate);
             // retrieve SK from round R
-            sk = Timelock.getSecretKeyFromRound(Round, scheme);
+            try {
+                sk = Timelock.getSecretKeyFromRound(Round, scheme);
+            } catch(Exception e) {
+                ShowAlert(getString(R.string.e2),getString(R.string.e12),getString(R.string.back));
+                return;
+            }
+
 
             PrivateKey Sk = kf.generatePrivate(new PKCS8EncodedKeySpec(sk));
 
@@ -175,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (InvalidKeySpecException | InvalidKeyException | NoSuchAlgorithmException |
                  ShortBufferException | NoSuchPaddingException | BadPaddingException |
-                 IllegalBlockSizeException | IOException e) {
+                 IllegalBlockSizeException e) {
             e.printStackTrace();
             Log.e("timelock.zone", "exception", e);
             ShowAlert(getString(R.string.e2), getString(R.string.e3), getString(R.string.ok));
@@ -250,7 +263,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
