@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
         // type of the content to be shared
         sharingIntent.setType("text/plain");
-        String s = ((TextView) findViewById(R.id.output)).getText().toString();
+        String s = ((TextView) findViewById(R.id.input)).getText().toString();
         try {
             String day = s.substring(0, 2);
             String month = s.substring(2, 4);
