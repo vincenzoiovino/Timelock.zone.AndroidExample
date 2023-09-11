@@ -14,7 +14,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:onClick="select_date"
-        android:text="Choose Date" />
+        android:text="@string/Choose" />
 
     <Button
         android:id="@+id/encrypt"
@@ -23,7 +23,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:onClick="encrypt"
-        android:text="Encrypt" />
+        android:text="@string/Encrypt"/>
 
     <Button
         android:id="@+id/decrypt"
@@ -32,14 +32,14 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:onClick="decrypt"
-        android:text="Decrypt" />
+        android:text="@string/Decrypt" />
 
 
     <EditText
         android:id="@+id/input"
         android:layout_width="480dp"
         android:layout_height="201dp"
-        android:text="Type here the message/ciphertext to encrypt/decrypt..."
+        android:text="@string/Typehere"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/black"
         android:onClick="textEmpty"
@@ -75,6 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="finish"
-        android:text="Exit" />
+        android:text="@string/Exit" />
 
 </LinearLayout>

@@ -271,8 +271,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void finish(View v) {
 
-        moveTaskToBack(true);
-
+        //moveTaskToBack(true);
+        MainActivity.this.finish();
+        System.exit(0);
     }
 
     public void Instructions(View v) {

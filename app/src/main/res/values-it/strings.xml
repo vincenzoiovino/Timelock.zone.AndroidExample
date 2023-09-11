@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Timelock.zone</string>
+    <string name="Encrypt">Cifra</string>
+    <string name="Decrypt">Decifra</string>
+    <string name="Choose">Scegli una data</string>
+    <string name="Exit">Esci</string>
+    <string name="Typehere">Scrivi qui il messaggio da cifrare...\nO incolla qui il testo cifrato da decifrare...</string>
+    <string name="pick_date">Scegli la data</string>
+    <string name="AppLink">https://www.timelock.zone/ct/</string>
+    <string name="b1">Hai ricevuto un messaggio cifrato al futuro. Puoi decifrarlo dal giorno" "</string>
+    <string name="b2">Per decifrare scarica l\'App di timelock.zone da https://www.timelock.zone e apri il seguente link:" "</string>
+    <string name="b3">Scarica l\'App di timelock.zone da https://www.timelock.zone</string>
+    <string name="b4">Messaggio timelock.zone cifrato al futuro</string>
+    <string name="ctc">Testo cifrato copiato negli appunti</string>
+    <string name="e1">Nessun testo cifrato da condividere. Prima di condividere segui le istruzioni su come cifrare un messaggio al futuro.</string>
+    <string name="e2">Errore</string>
+    <string name="e3">Si è verificato un errore. Impossibile cifrare/decifrare.</string>
+    <string name="e4">Data invalida</string>
+    <string name="e5">Il messaggio cifrato non è associato ad una data valida nel futuro.</string>
+    <string name="e6">È ancora presto</string>
+    <string name="e7">Devi aspettare fino al " "</string>
+    <string name="e8">per decifrare.</string>
+    <string name="e9">Formato invalido del testo cifrato</string>
+    <string name="e10">Si è verificato un errore. Impossibile cifrare/decifrare.</string>
+    <string name="e11">Condividi con</string>
+    <string name="instructions_tile">Istruzioni</string>
+    <string name="back">Indietro</string>
+    <string name="ok">Ok</string>
+    <string name="instructions">Come cifrare.\n1. Scegli una data nel futuro.\n2. Clicca su Cifra.\nIl testo cifrato sarà visualizzato. Clicca su di esso per copiarlo negli appunti.\n\n
+    Come decifrare.\n
+    1. Incolla il testo cifrato nella casella di testo.\n
+    2. Clicca su Decifra.\n
+    Il messaggio sarà visualizzato o riceverai un errore se la data di decifratura non è stata raggiunta ancora.\n\n
+
+    Condivisione.\n
+    Clicca sull\'icona di condivisione per condividere il testo cifrato con le istruzioni sui social.\n\n
+
+    ©Timelock.zone, 2023.\nPowered by drand.love.</string>
+</resources>
