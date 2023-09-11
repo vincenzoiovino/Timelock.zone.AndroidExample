@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 strDate = sdf.parse(s.substring(0, 8));
                 if (new Date().before(strDate)) {
                     ShowAlert(getString(R.string.e6), getString(R.string.e7) + s.substring(0, 2) + "/" + s.substring(2, 4) + "/" + s.substring(4, 8) + " (DD/MM/YYYY) " + getString(R.string.e8), getString(R.string.back));
-
+                    return;
                 }
 
 
