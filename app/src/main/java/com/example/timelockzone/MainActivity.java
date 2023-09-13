@@ -66,7 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
             Cipher iesCipher = Cipher.getInstance("ECIES");
 
-            Date date = new Date();
+            Date date;
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+                date = sdf.parse(txtDate);
+
+            } catch (Exception e) {
+                ShowAlert(getString(R.string.e4), getString(R.string.e5), getString(R.string.ok));
+                return;
+            }
+
+
             long Round = Timelock.DateToRound(date);
 
             byte[] pk;
@@ -263,9 +273,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        Timelock.Setup();
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH)+1;
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        String daystr;
+        String monthstr;
+        if (day<10) daystr="0"+day;
+        else daystr=day+"";
+        if (month<10) monthstr="0"+month;
+        else monthstr=month+"";
 
+        txtDate=daystr+monthstr+year;
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
 
@@ -291,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Instructions(View v) {
-//    ShowAlert("Instructions","How to encrypt.\n1. Choose a date in the future.\n2. Click on Encrypt.\nThe ciphertext will be displayed. Click on  it and the ciphertext will be copied to your clipboard.\n\nHow to decrypt.\n1. Paste the ciphertext in the textbox.\n2. Click on decrypt.\nThe plaintext will be displayed or you will get an error if the time of decryption is not reached yet.\n\nSharing.\nClick on the sharing icon to share the ciphertext along with instructions to social media.\n\n©Timelock.zone, 2023.\nPowered by drand.love.",
+//    ShowAlert("Instrutions","How to encrypt.\n1. Choose a date in the future.\n2. Click on Encrypt.\nThe ciphertext will be displayed. Click on  it and the ciphertext will be copied to your clipboard.\n\nHow to decrypt.\n1. Paste the ciphertext in the textbox.\n2. Click on decrypt.\nThe plaintext will be displayed or you will get an error if the time of decryption is not reached yet.\n\nSharing.\nClick on the sharing icon to share the ciphertext along with instructions to social media.\n\n©Timelock.zone, 2023.\nPowered by drand.love.",
         //          "Back");
         ShowAlert(getString(R.string.instructions_tile), getString(R.string.instructions), getString(R.string.back));
     }

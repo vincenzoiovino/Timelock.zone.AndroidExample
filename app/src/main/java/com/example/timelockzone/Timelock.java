@@ -2,6 +2,7 @@ package com.example.timelockzone;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.StrictMode;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -18,6 +19,13 @@ import java.util.regex.Pattern;
 
 public class Timelock {
 
+    public static void Setup()
+    {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+    }
     private static String getUrlContents(String theUrl) throws IOException
     {
         StringBuilder content = new StringBuilder();
