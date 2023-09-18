@@ -1,6 +1,6 @@
 # Timelock.zone.AndroidExample
 This repo contains an example of an Android App that can use the [timelock.zone](https://www.timelock.zone) service to encrypt messages to the future and decrypt them. Timelock.zone is a public service built on [drand](https://drand.love) that publishes public keys for future timeframes whose corresponding secret keys will be released at the correpsonding time.
-See also [tlcs-c](https://github.com/aragonzkresearch/tlcs-c/) and [TLCS Usage](https://github.com/aragonzkresearch/tlcs-c/blob/main/examples/howtoencrypt.md).
+See also [tlcs-c](https://github.com/aragonzkresearch/tlcs-c/), [timelock.fs](https://github.com/vincenzoiovino/timelock.fs) and [TLCS Usage](https://github.com/aragonzkresearch/tlcs-c/blob/main/examples/howtoencrypt.md).
 
 The app is fully working except that the [Timelock.java](https://github.com/vincenzoiovino/Timelock.zone.AndroidExample/blob/master/app/src/main/java/com/example/timelockzone/Timelock.java) class has to be modified to retrieve real TLCS keys from the timelock.zone service. The code computes all necessary information to do that but currently the class ignores them and uses embedded keys.
 
