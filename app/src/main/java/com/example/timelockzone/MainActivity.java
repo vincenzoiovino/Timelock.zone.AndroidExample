@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             KeyFactory kf = KeyFactory.getInstance("ECDH");
 
-            Cipher iesCipher = Cipher.getInstance("ECIES");
+            Cipher iesCipher = Cipher.getInstance("ECIES"); // you can replace this with more secure instantiations of ECIES like "ECIESwithSHA256" etc.
 
             Date date;
             try {
