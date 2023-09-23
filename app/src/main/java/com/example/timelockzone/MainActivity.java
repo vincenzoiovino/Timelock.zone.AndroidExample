@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         String plainText;
         try {
 
-            KeyFactory kf = KeyFactory.getInstance("ECDH");
+            KeyFactory kf = KeyFactory.getInstance("ECDH"); // by default secp256k1 will be selected by bouncycastle
 
             Cipher iesCipher = Cipher.getInstance("ECIES"); // you can replace this with more secure instantiations of ECIES like "ECIESwithSHA256" etc.
 
