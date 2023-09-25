@@ -22,7 +22,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -46,9 +50,23 @@ import javax.crypto.ShortBufferException;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static String Version="v10000001/";
     private static String txtDate = "01092023";
     private static final String scheme = "secp256k1";
+    private static final String tinyUrl = "https://tinyurl.com/api-create.php?url=";
 
+
+
+    private String CreateTinyUrl(String url) throws IOException {
+        String tinyUrlLookup = tinyUrl + url;
+        System.out.println(url);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(tinyUrlLookup).openStream()));
+        String tinyUrl = reader.readLine();
+        System.out.println(tinyUrl);
+
+        return tinyUrl;
+    }
 
     public void select_date(View view) {
 
@@ -64,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
             KeyFactory kf = KeyFactory.getInstance("ECDH"); // by default secp256k1 will be selected by bouncycastle
 
-            Cipher iesCipher = Cipher.getInstance("ECIES"); // you can replace this with more secure instantiations of ECIES like "ECIESwithSHA256" etc.
+            Cipher iesCipher = Cipher.getInstance("ECIES"); // you can replace this with more secure instantiations of ECIES like "ECIESwithSHA256" etc. Se also Victor Shoup's paper on ECIES.
+
 
             Date date;
             try {
@@ -294,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
         if (appLinkData != null) {
             String s = appLinkData.toString();
             if (s.length() > getString(R.string.AppLink).length()) {
-                String ct = appLinkData.toString().substring(getString(R.string.AppLink).length() );
+                String ct = appLinkData.toString().substring(getString(R.string.AppLink).length()+Version.length() );
 
                 ((EditText) findViewById(R.id.input)).setText(ct);
                 decrypt(getWindow().getDecorView().getRootView());
@@ -353,7 +372,8 @@ public class MainActivity extends AppCompatActivity {
             String year = s.substring(4, 8);
             String ct = s;
             // Body of the content
-            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + ct;
+
+            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + CreateTinyUrl(getString(R.string.AppLink) + Version+ ct);
             // subject of the content. you can share anything
             String shareSubject = getString(R.string.b4);
 
