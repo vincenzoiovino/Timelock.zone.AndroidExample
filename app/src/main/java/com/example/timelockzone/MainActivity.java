@@ -24,9 +24,9 @@ import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +47,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.ShortBufferException;
-
+import org.zone.timelock.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,11 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
     private String CreateTinyUrl(String url) throws IOException {
         String tinyUrlLookup = tinyUrl + url;
-        System.out.println(url);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(tinyUrlLookup).openStream()));
+        InputStream IS= new URL(tinyUrlLookup).openStream();
+        InputStreamReader ISR=new InputStreamReader(IS);
+        BufferedReader reader = new BufferedReader(ISR);
         String tinyUrl = reader.readLine();
-        System.out.println(tinyUrl);
-
         return tinyUrl;
     }
 
@@ -292,6 +291,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Security.insertProviderAt(new org.spongycastle.jce.provider.BouncyCastleProvider(), 1);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         Timelock.Setup();
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -366,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
         // type of the content to be shared
         sharingIntent.setType("text/plain");
         String s = ((TextView) findViewById(R.id.output)).getText().toString();
-        try {
+        try { // we first try with tinyurl, if it fails we try with long url. TODO: less duplicated code
             String day = s.substring(0, 2);
             String month = s.substring(2, 4);
             String year = s.substring(4, 8);
@@ -384,8 +386,28 @@ public class MainActivity extends AppCompatActivity {
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
             startActivity(Intent.createChooser(sharingIntent, getString(R.string.e11)));
         } catch (Exception e) {
-            ShowAlert(getString(R.string.e2), getString(R.string.e1), getString(R.string.back));
+         try{
+            String day = s.substring(0, 2);
+            String month = s.substring(2, 4);
+            String year = s.substring(4, 8);
+            String ct = s;
+            // Body of the content
 
+            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + Version + ct;
+            // subject of the content. you can share anything
+            String shareSubject = getString(R.string.b4);
+
+            // passing body of the content
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+
+            // passing subject of the content
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+            startActivity(Intent.createChooser(sharingIntent, getString(R.string.e11)));
+
+
+        } catch (Exception e2) {
+             ShowAlert(getString(R.string.e2), getString(R.string.e1), getString(R.string.back));
+         }
         }
     }
 
