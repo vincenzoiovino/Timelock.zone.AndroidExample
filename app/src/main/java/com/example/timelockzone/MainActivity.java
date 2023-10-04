@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                     String daystr, monthstr;
                     if (dayOfMonth < 10) daystr = "0" + dayOfMonth;
                     else daystr = "" + dayOfMonth;
-                    if (monthOfYear < 10) monthstr = "0" + (monthOfYear + 1);
+                    if (monthOfYear < 9) monthstr = "0" + (monthOfYear + 1);
                     else monthstr = "" + (monthOfYear + 1);
 
                     txtDate = daystr + monthstr + year;
