@@ -37,6 +37,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
@@ -170,7 +171,10 @@ public class MainActivity extends AppCompatActivity {
 
             KeyFactory kf = KeyFactory.getInstance("ECDH");
             String s = (((TextView) findViewById(R.id.input)).getText()).toString();
-            if (s.length() < 9) return;
+            if (s.length() < 9) {
+                ShowAlert(getString(R.string.e2), getString(R.string.e9), getString(R.string.ok));
+                return;
+            }
             byte[] cipherText2;
             try {
                 cipherText2 = Base64.getDecoder().decode(s.substring(8));
@@ -182,7 +186,14 @@ public class MainActivity extends AppCompatActivity {
             Date strDate = new Date();
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-                strDate = sdf.parse(s.substring(0, 8));
+                sdf.setLenient(false);
+                ParsePosition p = new ParsePosition( 0 );
+                strDate =  sdf.parse(s.substring(0, 8),p);
+
+                if(p.getIndex() < "ddMMyyyy".length()) {
+                    throw new ParseException( "ddMMyyyy", p.getIndex() );
+                }
+
                 if (new Date().before(strDate)) {
                     ShowAlert(getString(R.string.e6), getString(R.string.e7) + s.substring(0, 2) + "/" + s.substring(2, 4) + "/" + s.substring(4, 8) + " (DD/MM/YYYY) " + getString(R.string.e8), getString(R.string.back));
                     return;
@@ -191,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (ParseException e) {
                 ShowAlert(getString(R.string.e4), getString(R.string.e5), getString(R.string.ok));
+                return;
             }
             long Round = Timelock.DateToRound(strDate);
             // retrieve SK from round R
