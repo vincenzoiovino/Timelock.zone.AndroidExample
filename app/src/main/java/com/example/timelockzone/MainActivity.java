@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -52,7 +53,7 @@ import org.zone.timelock.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static String Version="v10000001/";
+    private static final String Version="v10000001/";
     private static String txtDate = "01092023";
     private static final String scheme = "secp256k1";
     private static final String tinyUrl = "https://tinyurl.com/api-create.php?url=";
@@ -64,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
         InputStream IS= new URL(tinyUrlLookup).openStream();
         InputStreamReader ISR=new InputStreamReader(IS);
         BufferedReader reader = new BufferedReader(ISR);
-        String tinyUrl = reader.readLine();
-        return tinyUrl;
-    }
+        return reader.readLine();
+
+       }
 
     public void select_date(View view) {
 
@@ -223,7 +224,9 @@ public class MainActivity extends AppCompatActivity {
             ctlength2 += iesCipher2.doFinal(plainText2, ctlength2);
             System.out.println("decrypted plaintext: " + ctlength2 + " " + cipherText2.length + " " + toString(plainText2));
             TextView tv = findViewById(R.id.output);
-            tv.setText(toString(plainText2));
+
+            tv.setText(new String( plainText2, StandardCharsets.UTF_8));
+            //tv.setText(toString(plainText2));
 
 
         } catch (InvalidKeySpecException | InvalidKeyException | NoSuchAlgorithmException |
@@ -252,21 +255,16 @@ public class MainActivity extends AppCompatActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            DatePickerDialog datePicker = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePicker = new DatePickerDialog(requireContext(), (view, year1, monthOfYear, dayOfMonth) -> {
 
-                @Override
-                public void onDateSet(DatePicker view, int year,
-                                      int monthOfYear, int dayOfMonth) {
+                String daystr, monthstr;
+                if (dayOfMonth < 10) daystr = "0" + dayOfMonth;
+                else daystr = "" + dayOfMonth;
+                if (monthOfYear < 9) monthstr = "0" + (monthOfYear + 1);
+                else monthstr = "" + (monthOfYear + 1);
 
-                    String daystr, monthstr;
-                    if (dayOfMonth < 10) daystr = "0" + dayOfMonth;
-                    else daystr = "" + dayOfMonth;
-                    if (monthOfYear < 9) monthstr = "0" + (monthOfYear + 1);
-                    else monthstr = "" + (monthOfYear + 1);
+                txtDate = daystr + monthstr + year1;
 
-                    txtDate = daystr + monthstr + year;
-
-                }
             }, year, month, day);
             datePicker.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
             return datePicker;
@@ -384,10 +382,10 @@ public class MainActivity extends AppCompatActivity {
             String day = s.substring(0, 2);
             String month = s.substring(2, 4);
             String year = s.substring(4, 8);
-            String ct = s;
+            // recall: s is the ciphertext;
             // Body of the content
 
-            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + CreateTinyUrl(getString(R.string.AppLink) + Version+ ct);
+            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + CreateTinyUrl(getString(R.string.AppLink) + Version+ s);
             // subject of the content. you can share anything
             String shareSubject = getString(R.string.b4);
 
@@ -402,10 +400,10 @@ public class MainActivity extends AppCompatActivity {
             String day = s.substring(0, 2);
             String month = s.substring(2, 4);
             String year = s.substring(4, 8);
-            String ct = s;
+            // recall: s is the ciphertext
             // Body of the content
 
-            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + Version + ct;
+            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + Version + s;
             // subject of the content. you can share anything
             String shareSubject = getString(R.string.b4);
 

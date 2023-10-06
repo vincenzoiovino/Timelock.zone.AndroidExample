@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Timelock.zone</string>
     <string name="Encrypt">Encrypt</string>
-    <string name="Typehere">Type here the message to encrypt...\nOr paste here the ciphertext to decrypt...</string>
+    <string name="Typehere">Type here the message to encrypt…\nOr paste here the ciphertext to decrypt…</string>
     <string name="Decrypt">Decrypt</string>
     <string name="Choose">Choose a date</string>
     <string name="Exit">Exit</string>
@@ -16,7 +16,7 @@
     <string name="e2">Error</string>
     <string name="e3">An error occurred. Unable to encrypt/decrypt.</string>
     <string name="e4">Invalid Date</string>
-    <string name="e5">The encrypted message is not associated to a valid date in the future.</string>
+    <string name="e5">The encrypted message is not associated to a valid date.</string>
     <string name="e6">It is not time yet</string>
     <string name="e7">You must wait until" "</string>
     <string name="e8">to decrypt.</string>
@@ -26,7 +26,7 @@
     <string name="e12">Timelock.zone service not working now. Try later.</string>
     <string name="instructions_tile">Instructions</string>
     <string name="back">Back</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="instructions">How to encrypt.\n1. Choose a date in the future.\n2. Click on Encrypt.\nThe ciphertext will be displayed. Click on it to copy it to your clipboard.\n\n
     How to decrypt.\n
     1. Paste the ciphertext in the textbox.\n

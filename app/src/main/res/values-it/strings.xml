@@ -5,7 +5,7 @@
     <string name="Decrypt">Decifra</string>
     <string name="Choose">Scegli una data</string>
     <string name="Exit">Esci</string>
-    <string name="Typehere">Scrivi qui il messaggio da cifrare...\nO incolla qui il testo cifrato da decifrare...</string>
+    <string name="Typehere">Scrivi qui il messaggio da cifrare…\nO incolla qui il testo cifrato da decifrare…</string>
     <string name="pick_date">Scegli la data</string>
     <string name="AppLink">https://www.timelock.zone/ct/</string>
     <string name="b1">Hai ricevuto un messaggio cifrato al futuro. Puoi decifrarlo dal giorno" "</string>
@@ -17,7 +17,7 @@
     <string name="e2">Errore</string>
     <string name="e3">Si è verificato un errore. Impossibile cifrare/decifrare.</string>
     <string name="e4">Data invalida</string>
-    <string name="e5">Il messaggio cifrato non è associato ad una data valida nel futuro.</string>
+    <string name="e5">Il messaggio cifrato non è associato ad una data valida.</string>
     <string name="e6">È ancora presto</string>
     <string name="e7">Devi aspettare fino al " "</string>
     <string name="e8">per decifrare.</string>
