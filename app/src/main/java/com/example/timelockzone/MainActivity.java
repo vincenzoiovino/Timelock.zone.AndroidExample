@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            long Round = Timelock.DateToRound(date);
+            long Round = Timelock.DayToRound(date);
 
             byte[] pk;
             try {
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 ShowAlert(getString(R.string.e4), getString(R.string.e5), getString(R.string.ok));
                 return;
             }
-            long Round = Timelock.DateToRound(strDate);
+            long Round = Timelock.DayToRound(strDate);
             // retrieve SK from round R
             try {
                 sk = Timelock.getSecretKeyFromRound(Round, scheme);
