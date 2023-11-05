@@ -9,7 +9,7 @@ You can download an `apk` from [here](https://github.com/vincenzoiovino/Timelock
 Add as dependencies ``spongycastle 1.54.0.0``, ``json-simple-1.1.jar`` and [``timelock.zone.jar``](https://github.com/vincenzoiovino/TimelockJavaAPI/tree/main). 
 
 ## Screenshots
-(The following screenshots are taken from an older version.)
+(The following screenshots are taken from an outdated version.)
 
 <img src="screenshotlock1.jpg" width="30%" height="30%" />
 <br>
