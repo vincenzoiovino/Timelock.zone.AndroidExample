@@ -240,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
             TextView tv = findViewById(R.id.output);
 
             tv.setText(new String( plainText2, StandardCharsets.UTF_8));
-            //tv.setText(toString(plainText2));
 
 
         } catch (InvalidKeySpecException | InvalidKeyException | NoSuchAlgorithmException |
@@ -267,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-            // Create a new instance of DatePickerDialog and return it
             DatePickerDialog datePicker = new DatePickerDialog(requireContext(), (view, year1, monthOfYear, dayOfMonth) -> {
 
                 String daystr, monthstr;
@@ -348,10 +346,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         txtDate=daystr+monthstr+year;
-        // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
 
-        //  String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
         if (appLinkData != null) {
             String s = appLinkData.toString();
