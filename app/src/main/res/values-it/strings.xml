@@ -13,7 +13,7 @@
     <string name="b2">Per decifrare scarica l\'App di timelock.zone da https://www.timelock.zone e apri il seguente link:" "</string>
     <string name="b3">Scarica l\'App di timelock.zone da https://www.timelock.zone</string>
     <string name="b4">Messaggio timelock.zone cifrato al futuro</string>
-    <string name="ctc">Testo cifrato copiato negli appunti</string>
+    <string name="ctc">Testo copiato negli appunti</string>
     <string name="e1">Nessun testo cifrato da condividere. Prima di condividere segui le istruzioni su come cifrare un messaggio al futuro.</string>
     <string name="e2">Errore</string>
     <string name="e3">Si è verificato un errore. Impossibile cifrare/decifrare.</string>

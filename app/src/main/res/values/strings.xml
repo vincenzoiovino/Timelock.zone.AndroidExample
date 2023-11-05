@@ -12,7 +12,7 @@
     <string name="b2">To decrypt download the timelock.zone App from https://www.timelock.zone and open the following link:" "</string>
     <string name="b3">Download the timelock.zone app from https://www.timelock.zone</string>
     <string name="b4">Timelock.zone message encrypted to the future</string>
-    <string name="ctc">Ciphertext copied to clipboard</string>
+    <string name="ctc">Text copied to clipboard</string>
     <string name="e1">No valid ciphertext to share. Before sharing, follow the instructions to encrypt a message to the future.</string>
     <string name="e2">Error</string>
     <string name="e3">An error occurred. Unable to encrypt/decrypt.</string>
