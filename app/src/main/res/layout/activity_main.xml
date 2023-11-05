@@ -15,6 +15,14 @@
         android:paddingRight="8dp"
         android:onClick="select_date"
         android:text="@string/Choose" />
+    <Button
+        android:id="@+id/hour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:onClick="select_hour"
+        android:text="@string/Hour" />
 
     <Button
         android:id="@+id/encrypt"

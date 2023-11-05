@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,10 +56,15 @@ import org.zone.timelock.*;
 public class MainActivity extends AppCompatActivity {
 
     private static final String Version="v10000001/";
+    private static final int length_date=10; // ddMMyyyyhh
+
+    private static final int length_hour=2; // hh
+
     private static String txtDate = "01092023";
+    private static String txtHour = "00";
     private static final String scheme = "secp256k1";
     private static final String tinyUrl = "https://tinyurl.com/api-create.php?url=";
-
+    private static TimePickerDialog timePickerDialog;
 
 
     private String CreateTinyUrl(String url) throws IOException {
@@ -67,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader reader = new BufferedReader(ISR);
         return reader.readLine();
 
-       }
+    }
 
     public void select_date(View view) {
 
@@ -75,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    public void select_hour(View view) {
+
+        timePickerDialog.show();
+    }
 
     public void encrypt(View view) {
 
@@ -88,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
             Date date;
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-                date = sdf.parse(txtDate);
+                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyhh");
+                date = sdf.parse(txtDate+txtHour);
 
             } catch (Exception e) {
                 ShowAlert(getString(R.string.e4), getString(R.string.e5), getString(R.string.ok));
@@ -97,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            long Round = Timelock.DayToRound(date);
+            long Round = Timelock.DateToRound(date);
 
             byte[] pk;
             try {
                 pk = Timelock.getPublicKeyFromRound(Round, scheme);
             } catch(Exception e) {
-            ShowAlert(getString(R.string.e2),getString(R.string.e12),getString(R.string.back));
-            return;
+                ShowAlert(getString(R.string.e2),getString(R.string.e12),getString(R.string.back));
+                return;
             }
 // retrieve PK based on the round Round
 
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             iesCipher.doFinal(cipherText, ctlength);
             System.out.println(Base64.getEncoder().encodeToString(cipherText));
 
-            ((TextView) findViewById(R.id.output)).setText(txtDate + Base64.getEncoder().encodeToString(cipherText));
+            ((TextView) findViewById(R.id.output)).setText(txtDate + txtHour+ Base64.getEncoder().encodeToString(cipherText));
 
 
         } catch (InvalidKeySpecException | InvalidKeyException | NoSuchAlgorithmException |
@@ -172,31 +183,34 @@ public class MainActivity extends AppCompatActivity {
 
             KeyFactory kf = KeyFactory.getInstance("ECDH");
             String s = (((TextView) findViewById(R.id.input)).getText()).toString();
-            if (s.length() < 9) {
+            if (s.length() <=  length_date) {
                 ShowAlert(getString(R.string.e2), getString(R.string.e9), getString(R.string.ok));
                 return;
             }
             byte[] cipherText2;
             try {
-                cipherText2 = Base64.getDecoder().decode(s.substring(8));
+                cipherText2 = Base64.getDecoder().decode(s.substring(length_date));
             } catch (Exception e) {
                 ShowAlert(getString(R.string.e2), getString(R.string.e9), getString(R.string.ok));
                 return;
             }
             byte[] sk;
             Date strDate = new Date();
+            final String parsedhour=s.substring(8,10);
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
                 sdf.setLenient(false);
                 ParsePosition p = new ParsePosition( 0 );
-                strDate =  sdf.parse(s.substring(0, 8),p);
-
-                if(p.getIndex() < "ddMMyyyy".length()) {
+                strDate =  sdf.parse(s.substring(0,length_date-length_hour),p);
+                if(p.getIndex() < length_date-length_hour) {
                     throw new ParseException( "ddMMyyyy", p.getIndex() );
                 }
-
+                final Calendar calendar = Calendar.getInstance();
+                calendar.setTime(strDate);
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(parsedhour));
+                strDate=calendar.getTime();
                 if (new Date().before(strDate)) {
-                    ShowAlert(getString(R.string.e6), getString(R.string.e7) + s.substring(0, 2) + "/" + s.substring(2, 4) + "/" + s.substring(4, 8) + " (DD/MM/YYYY) " + getString(R.string.e8), getString(R.string.back));
+                    ShowAlert(getString(R.string.e6), getString(R.string.e7) + s.substring(0, 2) + "/" + s.substring(2, 4) + "/" + s.substring(4, 8) + " (DD/MM/YYYY), " + HourParsing(s.substring(8,10))+" "+ getString(R.string.e8), getString(R.string.back));
                     return;
                 }
 
@@ -205,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 ShowAlert(getString(R.string.e4), getString(R.string.e5), getString(R.string.ok));
                 return;
             }
-            long Round = Timelock.DayToRound(strDate);
+            long Round = Timelock.DateToRound(strDate);
             // retrieve SK from round R
             try {
                 sk = Timelock.getSecretKeyFromRound(Round, scheme);
@@ -253,7 +267,6 @@ public class MainActivity extends AppCompatActivity {
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-
             // Create a new instance of DatePickerDialog and return it
             DatePickerDialog datePicker = new DatePickerDialog(requireContext(), (view, year1, monthOfYear, dayOfMonth) -> {
 
@@ -267,13 +280,15 @@ public class MainActivity extends AppCompatActivity {
 
             }, year, month, day);
             datePicker.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+
             return datePicker;
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
+            // TODO: when the selected day is the current one set as minimum hour the current hour.
         }
     }
+
 
     private static String toString(
             byte[] bytes,
@@ -306,21 +321,36 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         Timelock.Setup();
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH)+1;
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        final int year = c.get(Calendar.YEAR);
+        final int month = c.get(Calendar.MONTH)+1;
+        final int day = c.get(Calendar.DAY_OF_MONTH);
         String daystr;
         String monthstr;
         if (day<10) daystr="0"+day;
         else daystr=day+"";
         if (month<10) monthstr="0"+month;
         else monthstr=month+"";
+        final int hour = c.get(Calendar.HOUR_OF_DAY);
+
+        timePickerDialog = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        if (hourOfDay<10) txtHour="0"+hourOfDay;
+                        else txtHour=""+hourOfDay;
+
+                    }
+                }, hour, 0, true);
+
+
 
         txtDate=daystr+monthstr+year;
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
 
-      //  String appLinkAction = appLinkIntent.getAction();
+        //  String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
         if (appLinkData != null) {
             String s = appLinkData.toString();
@@ -371,6 +401,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private static String HourParsing(String hour) {
+        if (Integer.valueOf(hour)<= 12) return hour+":00 AM";
+        else return (Integer.valueOf(hour)-12)+":00 PM";
+    }
+
+
     public void share(View v) {
 
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -382,10 +418,11 @@ public class MainActivity extends AppCompatActivity {
             String day = s.substring(0, 2);
             String month = s.substring(2, 4);
             String year = s.substring(4, 8);
+            String hour = s.substring(8, 10);
             // recall: s is the ciphertext;
             // Body of the content
 
-            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + CreateTinyUrl(getString(R.string.AppLink) + Version+ s);
+            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY), "+HourParsing(hour)+".\n" + getString(R.string.b2) + CreateTinyUrl(getString(R.string.AppLink) + Version+ s);
             // subject of the content. you can share anything
             String shareSubject = getString(R.string.b4);
 
@@ -396,28 +433,29 @@ public class MainActivity extends AppCompatActivity {
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
             startActivity(Intent.createChooser(sharingIntent, getString(R.string.e11)));
         } catch (Exception e) {
-         try{
-            String day = s.substring(0, 2);
-            String month = s.substring(2, 4);
-            String year = s.substring(4, 8);
-            // recall: s is the ciphertext
-            // Body of the content
+            try{
+                String day = s.substring(0, 2);
+                String month = s.substring(2, 4);
+                String year = s.substring(4, 8);
+                String hour = s.substring(8, 10);
+                // recall: s is the ciphertext
+                // Body of the content
 
-            String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY).\n" + getString(R.string.b2) + getString(R.string.AppLink) + Version + s;
-            // subject of the content. you can share anything
-            String shareSubject = getString(R.string.b4);
+                String shareBody = getString(R.string.b1) + day + "/" + month + "/" + year + " (DD/MM/YYYY), "+HourParsing(hour)+".\n" + getString(R.string.b2) + getString(R.string.AppLink) + Version + s;
+                // subject of the content. you can share anything
+                String shareSubject = getString(R.string.b4);
 
-            // passing body of the content
-            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                // passing body of the content
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
 
-            // passing subject of the content
-            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
-            startActivity(Intent.createChooser(sharingIntent, getString(R.string.e11)));
+                // passing subject of the content
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.e11)));
 
 
-        } catch (Exception e2) {
-             ShowAlert(getString(R.string.e2), getString(R.string.e1), getString(R.string.back));
-         }
+            } catch (Exception e2) {
+                ShowAlert(getString(R.string.e2), getString(R.string.e1), getString(R.string.back));
+            }
         }
     }
 

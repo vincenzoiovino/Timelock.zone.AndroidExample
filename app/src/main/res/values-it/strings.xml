@@ -4,6 +4,7 @@
     <string name="Encrypt">Cifra</string>
     <string name="Decrypt">Decifra</string>
     <string name="Choose">Scegli una data</string>
+    <string name="Hour">Scegli una ora (i minuti sono ignorati)</string>
     <string name="Exit">Esci</string>
     <string name="Typehere">Scrivi qui il messaggio da cifrare…\nO incolla qui il testo cifrato da decifrare…</string>
     <string name="pick_date">Scegli la data</string>
@@ -29,7 +30,7 @@
     <string name="instructions_tile">Istruzioni</string>
     <string name="back">Indietro</string>
     <string name="ok">Ok</string>
-    <string name="instructions">Come cifrare.\n1. Scegli una data nel futuro.\n2. Clicca su Cifra.\nIl testo cifrato sarà visualizzato. Clicca su di esso per copiarlo negli appunti.\n\n
+    <string name="instructions">Come cifrare.\n1. Scegli una data e ora nel futuro (i minuti sono ignorati).\n2. Clicca su Cifra.\nIl testo cifrato sarà visualizzato. Clicca su di esso per copiarlo negli appunti.\n\n
     Come decifrare.\n
     1. Incolla il testo cifrato nella casella di testo.\n
     2. Clicca su Decifra.\n
