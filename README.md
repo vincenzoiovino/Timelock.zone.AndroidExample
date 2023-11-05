@@ -10,6 +10,7 @@ Add as dependencies ``spongycastle 1.54.0.0``, ``json-simple-1.1.jar`` and [``ti
 
 ## Screenshots
 (The following screenshots are taken from an older version.)
+
 <img src="screenshotlock1.jpg" width="30%" height="30%" />
 <br>
 <img src="screenshotlock2.jpg" width="30%" height="30%" />
