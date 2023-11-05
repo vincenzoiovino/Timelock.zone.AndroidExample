@@ -45,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
             Date date;
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyhh");
+                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyHH");
                 date = sdf.parse(txtDate+txtHour);
 
             } catch (Exception e) {
@@ -132,8 +133,10 @@ public class MainActivity extends AppCompatActivity {
             int ctlength = iesCipher.update(plainText.getBytes(), 0, plainText.getBytes().length, cipherText, 0);
             iesCipher.doFinal(cipherText, ctlength);
             System.out.println(Base64.getEncoder().encodeToString(cipherText));
-
-            ((TextView) findViewById(R.id.output)).setText(txtDate + txtHour+ Base64.getEncoder().encodeToString(cipherText));
+            SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyHH");
+            sdf.setTimeZone(TimeZone.getTimeZone(Timelock.timezone));
+            final String t=sdf.format(date); // format s in timelock.zone timezone
+            ((TextView) findViewById(R.id.output)).setText(t+ Base64.getEncoder().encodeToString(cipherText));
 
 
         } catch (InvalidKeySpecException | InvalidKeyException | NoSuchAlgorithmException |
@@ -196,21 +199,18 @@ public class MainActivity extends AppCompatActivity {
             }
             byte[] sk;
             Date strDate = new Date();
-            final String parsedhour=s.substring(8,10);
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyHH");
+                sdf.setTimeZone(TimeZone.getTimeZone(Timelock.timezone));
                 sdf.setLenient(false);
                 ParsePosition p = new ParsePosition( 0 );
-                strDate =  sdf.parse(s.substring(0,length_date-length_hour),p);
-                if(p.getIndex() < length_date-length_hour) {
-                    throw new ParseException( "ddMMyyyy", p.getIndex() );
+                strDate =  sdf.parse(s.substring(0,length_date),p);
+                if(p.getIndex() < length_date) {
+                    throw new ParseException( "ddMMyyyyHH", p.getIndex() );
                 }
-                final Calendar calendar = Calendar.getInstance();
-                calendar.setTime(strDate);
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(parsedhour));
-                strDate=calendar.getTime();
                 if (new Date().before(strDate)) {
-                    ShowAlert(getString(R.string.e6), getString(R.string.e7) + s.substring(0, 2) + "/" + s.substring(2, 4) + "/" + s.substring(4, 8) + " (DD/MM/YYYY), " + HourParsing(s.substring(8,10))+" "+ getString(R.string.e8), getString(R.string.back));
+//                    ShowAlert(getString(R.string.e6), getString(R.string.e7) + s.substring(0, 2) + "/" + s.substring(2, 4) + "/" + s.substring(4, 8) + " (DD/MM/YYYY), " + HourParsing(s.substring(8,10))+" "+ getString(R.string.e8), getString(R.string.back));
+                    ShowAlert(getString(R.string.e6), getString(R.string.e7) + strDate.toLocaleString()+" "+ getString(R.string.e8), getString(R.string.back));
                     return;
                 }
 
@@ -399,8 +399,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static String HourParsing(String hour) {
-        if (Integer.valueOf(hour)<= 12) return hour+":00 AM";
-        else return (Integer.valueOf(hour)-12)+":00 PM";
+        if (Integer.valueOf(hour)<= 12) return hour+":00 AM, "+Calendar.getInstance().getTimeZone().getDisplayName();
+        else return (Integer.valueOf(hour)-12)+":00 PM, "+Calendar.getInstance().getTimeZone().getDisplayName();
     }
 
 
