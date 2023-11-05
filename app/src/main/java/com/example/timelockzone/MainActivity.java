@@ -340,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
                                           int minute) {
                         if (hourOfDay<10) txtHour="0"+hourOfDay;
                         else txtHour=""+hourOfDay;
+                        if (minute!=0) ShowAlert(getString(R.string.e13), getString(R.string.e14)+" "+HourParsing(""+hourOfDay), getString(R.string.ok));
 
                     }
                 }, hour, 0, true);

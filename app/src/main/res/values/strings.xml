@@ -4,7 +4,7 @@
     <string name="Typehere">Type here the message to encrypt…\nOr paste here the ciphertext to decrypt…</string>
     <string name="Decrypt">Decrypt</string>
     <string name="Choose">Choose a date</string>
-    <string name="Hour">Choose an hour (minutes are ignored)</string>
+    <string name="Hour">Choose an hour</string>
     <string name="Exit">Exit</string>
     <string name="pick_date">Choose  a date</string>
     <string name="AppLink">https://www.timelock.zone/ct/</string>
@@ -25,6 +25,8 @@
     <string name="e10">An error occurred. Unable to encrypt/decrypt.</string>
     <string name="e11">Share using</string>
     <string name="e12">Timelock.zone service not working now. Try later.</string>
+    <string name="e13">Minutes are ignored</string>
+    <string name="e14">Minutes will be ignored. The selected hour is set to:</string>
     <string name="instructions_tile">Instructions</string>
     <string name="back">Back</string>
     <string name="ok">OK</string>

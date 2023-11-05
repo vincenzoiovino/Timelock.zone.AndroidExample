@@ -4,7 +4,7 @@
     <string name="Encrypt">Cifra</string>
     <string name="Decrypt">Decifra</string>
     <string name="Choose">Scegli una data</string>
-    <string name="Hour">Scegli una ora (i minuti sono ignorati)</string>
+    <string name="Hour">Scegli una ora</string>
     <string name="Exit">Esci</string>
     <string name="Typehere">Scrivi qui il messaggio da cifrare…\nO incolla qui il testo cifrato da decifrare…</string>
     <string name="pick_date">Scegli la data</string>
@@ -26,7 +26,8 @@
     <string name="e10">Si è verificato un errore. Impossibile cifrare/decifrare.</string>
     <string name="e11">Condividi con</string>
     <string name="e12">Servizio timelock.zone inattivo in questo momento. Prova più tardi.</string>
-
+    <string name="e13">I minuti sono ignorati</string>
+    <string name="e14">I minuti saranno ignorati. L\'ora selezionata The selected hour è impostata a:</string>
     <string name="instructions_tile">Istruzioni</string>
     <string name="back">Indietro</string>
     <string name="ok">Ok</string>
