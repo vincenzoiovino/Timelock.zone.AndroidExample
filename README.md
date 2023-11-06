@@ -4,7 +4,7 @@ See also [tlcs-c](https://github.com/aragonzkresearch/tlcs-c/), [tlcs-rust](http
 
 ## Installation
 You can download an `apk` from [here](https://github.com/vincenzoiovino/Timelock.zone.AndroidExample/blob/master/timelock.zone.apk). You may need to enable installation of apps from [untrusted sources](https://www.wikihow.com/Allow-Apps-from-Unknown-Sources-on-Android).
-The App supports `Android` link schema that allow you to share `timelock.zone` ciphertexts over the socials and to open the corresponding links in the App. To make such links to work you may need to the App settings, click on `Set as defaul`  and then enable `Open supported links` and restart `Android`.
+The App supports `Android` link schema that allow you to share `timelock.zone` ciphertexts over the socials and to open the corresponding links in the App. To make such links to work you may need to the App settings, click on `Set as default`  and then enable `Open supported links` and restart `Android`.
 
 ## Dependencies
 Add as dependencies ``spongycastle 1.54.0.0``, ``json-simple-1.1.jar`` and [``timelock.zone.jar``](https://github.com/vincenzoiovino/TimelockJavaAPI/tree/main). 
