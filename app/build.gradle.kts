@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.timelockzone"
         minSdk = 27
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
@@ -43,7 +43,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-       implementation("com.madgag.spongycastle:core:1.54.0.0")
+    implementation("com.madgag.spongycastle:core:1.54.0.0")
     implementation ("com.madgag.spongycastle:prov:1.54.0.0")
     implementation("com.madgag.spongycastle:pkix:1.54.0.0")
     implementation( "com.madgag.spongycastle:pg:1.54.0.0")

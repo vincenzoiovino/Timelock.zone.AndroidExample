@@ -399,8 +399,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static String HourParsing(String hour) {
-        if (Integer.valueOf(hour)<= 12) return hour+":00 AM, "+Calendar.getInstance().getTimeZone().getDisplayName();
-        else return (Integer.valueOf(hour)-12)+":00 PM, "+Calendar.getInstance().getTimeZone().getDisplayName();
+        if (Integer.valueOf(hour)<= 12) return hour+":00 AM, "+Timelock.timelock_zone_utc;
+        else return (Integer.valueOf(hour)-12)+":00 PM, "+Timelock.timelock_zone_utc;
     }
 
 
